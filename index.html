@@ -1,0 +1,33 @@
+<html>
+<head>
+ <meta charset="utf-8">
+ <link rel="stylesheet" href="css/style.css">
+ <script src="js/core.js"></script>
+</head>
+<body onload="init()">
+<div class="header">
+Lvl width:
+<button onclick="decreaseFieldWidth()">-</button>
+<input type="text" id="battlefield_width" onchange="fillBattleField()" value="1"></input>
+<button onclick="increaseFieldWidth()">+</button>
+Lvl height:
+<button onclick="decreaseFieldHeight()">-</button>
+<input type="text" id="battlefield_height" onchange="fillBattleField()" value="1"></input>
+<button onclick="increaseFieldHeight()">+</button>
+Lvl name:
+<input type="text" id="lvlName" onchange="genResult()" value="1"></input>
+</div>
+<div class="content">
+
+	<div id="battlefield"></div>
+<!--
+<div class="game_poops f_l" id="poops_id_1">
+	<div class="set_poops_mode_buton f_l empty" onclick="setPoopsModeTo(this)" popsid=""></div>
+</div>
+-->
+</div>
+<div class="footer">
+<input type="text" id="result" readonly value="asdasd" onclick="this.select()"></input>
+</div>
+</body>
+</html>
