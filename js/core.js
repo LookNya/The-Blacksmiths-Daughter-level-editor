@@ -1,7 +1,7 @@
-var poops_variations={ // dont forget to "></div> after using
-	'0':'<div class="set_poops_mode_buton f_l empty" onclick="setPoopsModeTo(this)" popsid="',
-	'1':'<div class="set_poops_mode_buton f_l wall" onclick="setPoopsModeTo(this)" popsid="'
-}
+var poops_variations=[ // dont forget to "></div> after using
+	'<div class="set_poops_mode_buton f_l empty" poopsid="',
+	'<div class="set_poops_mode_buton f_l wall" poopsid="'
+]
 var poops_settings_from_classes={
 	'set_poops_mode_buton f_l empty':'empty_poops',
 	'set_poops_mode_buton f_l wall':'wall_poops',
@@ -10,9 +10,10 @@ var poops_code_from_classes={
 	'game_poops f_l empty_poops':'W0',
 	'game_poops f_l wall_poops':'00'
 }
-
+var mDownAt = ''
 function init(){
 	fillBattleField()
+	document.body.addEventListener('mouseup', function(){mDownAt=''})
 }
 
 function fillBattleField(){
@@ -23,16 +24,30 @@ function fillBattleField(){
 		newPoops = document.createElement('div')
 		newPoops.className = 'game_poops f_l empty_poops'
 		newPoops.id = 'poops_id_' + s;
+		newPoops.addEventListener('mouseover', function(e){
+					if (e.toElement.getAttribute('poopsid')) return
+					if (mDownAt != ''){
+						e.toElement.className = 'game_poops f_l ' + poops_settings_from_classes[mDownAt]
+					}
+				})
 		battlefield.appendChild(newPoops)
-		for (i in  poops_variations)
+		for (i=0; i<poops_variations.length; i++){
 			document.getElementById('poops_id_' + s).innerHTML += poops_variations[i] + s + '"></div>'
+			document.getElementById('poops_id_' + s).addEventListener('click', function(e){setPoopsModeTo(e.target)})
+			}
+
 	}
+	for (i=0; i<document.getElementsByClassName('set_poops_mode_buton').length; i++)
+		document.getElementsByClassName('set_poops_mode_buton')[i].addEventListener('mousedown', function(e){
+						mDownAt = e.target.className
+					})
+	
 	battlefield.style.width = poops_id_0.getBoundingClientRect().width * battlefield_width.value + 'px'
 	
 	genResult()
 }
 function setPoopsModeTo(poops){
-	document.getElementById('poops_id_' + poops.getAttribute('popsid')).className = 'game_poops f_l ' + poops_settings_from_classes[poops.className]
+	document.getElementById('poops_id_' + poops.getAttribute('poopsid')).className = 'game_poops f_l ' + poops_settings_from_classes[poops.className]
 	genResult()
 }
 function genResult(){
