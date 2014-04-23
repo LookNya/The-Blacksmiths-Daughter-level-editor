@@ -1,7 +1,6 @@
 var poops_variations={ // dont forget to "></div> after using
 	'0':'<div class="set_poops_mode_buton f_l empty" onclick="setPoopsModeTo(this)" popsid="',
-	'1':'<div class="set_poops_mode_buton f_l wall" onclick="setPoopsModeTo(this)" popsid="',
-	'size': 2// dont forget to change size. Also, why .length doesnt work?
+	'1':'<div class="set_poops_mode_buton f_l wall" onclick="setPoopsModeTo(this)" popsid="'
 }
 var poops_settings_from_classes={
 	'set_poops_mode_buton f_l empty':'empty_poops',
@@ -25,7 +24,7 @@ function fillBattleField(){
 		newPoops.className = 'game_poops f_l empty_poops'
 		newPoops.id = 'poops_id_' + s;
 		battlefield.appendChild(newPoops)
-		for (i=0; i< poops_variations['size']; i++)
+		for (i in  poops_variations)
 			document.getElementById('poops_id_' + s).innerHTML += poops_variations[i] + s + '"></div>'
 	}
 	battlefield.style.width = poops_id_0.getBoundingClientRect().width * battlefield_width.value + 'px'
